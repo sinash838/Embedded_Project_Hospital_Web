@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<div class="card bed-card" style="width: 18rem;" >
+    <div class="card-body" style="direction: ltr;alignment: left">
+        <h5 class="card-title" style="direction: ltr;alignment: left">{{ bed.id }}</h5>
+        <h5 class="card-title">Patient: {{ bed }} </h5>
+        {% if bed.alert_status %}
+            <h5 style="color: #a71d2a">ALERT!</h5>
+        {% else %}
+            <h5 style="color:#1c7430">Normal</h5>
+        {% endif %}
+        <p class="card-text"></p>
+        <a class="card bed-card" href="{% url 'patients:bed_view' bed_id=bed.id %}"
+           class="card-link">{% trans "details" %}</a>
+        <a class="card bed-card" href="{% url 'patients:bed_edit' bed_id=bed.id %}"
+           class="card-link">{% trans "change patient" %}</a>
+    </div>
+</div>

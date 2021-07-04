@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+
+{% block content %}
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+        <h4>{% trans "Hospital Beds" %}</h4>
+        {% for bed in beds %}
+            {% include 'patients/hospital_bed_card.html' with bed=bed %}
+            <br>
+        {% endfor %}
+    </div>
+    <div class="col-sm-1"></div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'patients:beds_list' %}">
+            {% trans "beds" %}
+        </a>
+    </li>
+
+    <li class="breadcrumb-item active">
+        {{ bed.title }}
+    </li>
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-sm-7">
+        <br/>
+        <h5>
+            {{ bed.id }}
+        </h5>
+        {% if bed.occupied_patient %}
+            <h5>
+                Patient:
+            </h5>
+            <h5>
+                {{ bed.occupied_patient.first_name }}
+                {{ bed.occupied_patient.last_name }}
+            </h5>
+            <br>
+            <div class="card bed-card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5>
+                        TEMPERATURE: {{ bed.measured_temperature }}
+                        <br>
+                        BLOOD PRESSURE: {{ bed.measured_blood_pressure }}
+                        <br>
+                        OXYGEN LEVEL: {{ bed.measured_oxygen_level }}
+                        <br>
+                        HEART RATE: {{ bed.measured_heart_rate }}
+                    </h5>
+                    {% if bed.alert_status %}
+                        <h5 style="color: #a71d2a">ALERT!</h5>
+                    {% else %}
+                        <h5 style="color:#1c7430">Normal</h5>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <h5>
+                EMPTY BED
+            </h5>
+        {% endif %}
+        <a class="card bed-card" href="{% url 'patients:bed_edit' bed_id=bed.id %}"
+           class="card-link">{% trans "change patient" %}</a>
+    </div>
+    <div class="col-sm-2"></div>
+{% endblock %}

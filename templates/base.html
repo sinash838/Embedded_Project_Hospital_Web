@@ -1,0 +1,42 @@
+{% extends 'base-menuless.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block menu %}
+
+    <div class="navbar menu-item">
+        <div class="dropdown menu-dropdown">
+            <button type="button" class="btn btn-link text-menuitem dropdown-toggle" id="bedsDropdownButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% trans "Options" %}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="bedsDropdownButton">
+                <a class="dropdown-item" href="{% url 'patients:beds_list' %}">
+                    {% trans "Beds List" %}
+                </a>
+                <a class="dropdown-item" href="{% url 'patients:patient_create' %}">
+                    {% trans "Create Patient" %}
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr class="sidebar-hr"/>
+    {% if user.is_authenticated %}
+        <hr class="sidebar-hr"/>
+        <div class="navbar menu-item">
+            <a href="{% url 'accounts:logout' %}" class="btn btn-link text-menuitem">
+                {% trans "logout" %} ({{ user.username }})
+            </a>
+        </div>
+    {% else %}
+        <hr class="sidebar-hr"/>
+        <div class="navbar menu-item">
+            <a href="{% url 'accounts:login' %}" class="btn btn-link text-menuitem">
+                {% trans "login" %}
+            </a>
+        </div>
+        <hr class="sidebar-hr"/>
+    {% endif %}
+
+{% endblock %}
