@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 # Create your views here.
 from django.urls import reverse
@@ -69,4 +69,4 @@ def update_patient_status(request, bed_id, temp, sbp, dbp, bo, pulse):
     bed.measured_heart_rate = pulse
     bed.measured_oxygen_level = bo
     bed.save()
-    return {"status": "ok"}
+    return HttpResponse("OK")
