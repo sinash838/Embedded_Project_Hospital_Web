@@ -59,3 +59,14 @@ def edit_hospital_bed_view(request, bed_id):
                       'form': form,
                       'bed': bed,
                   })
+
+
+def update_patient_status(request, bed_id, temp, sbp, dbp, bo, pulse):
+    bed = get_object_or_404(HospitalBed, pk=bed_id)
+    bed.measured_temperature = temp
+    bed.measured_sbp = sbp
+    bed.measured_dbp = dbp
+    bed.measured_heart_rate = pulse
+    bed.measured_oxygen_level = bo
+    bed.save()
+    return {"status": "ok"}

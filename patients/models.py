@@ -14,7 +14,8 @@ class Patient(models.Model):
 class HospitalBed(models.Model):
     occupied_patient = models.OneToOneField(Patient, null=True, blank=True, on_delete=models.DO_NOTHING)
     measured_temperature = models.IntegerField(null=False, default=37)
-    measured_blood_pressure = models.IntegerField(null=False, default=120)
+    measured_sbp = models.IntegerField(null=False, default=120)
+    measured_dbp = models.IntegerField(null=False, default=80)
     measured_oxygen_level = models.IntegerField(null=False, default=87)
     measured_heart_rate = models.IntegerField(null=False, default=80)
 
@@ -27,7 +28,8 @@ class HospitalBed(models.Model):
     def alert_status(self):
         if self.occupied_patient is None:
             return False
-        if not (35 < self.measured_temperature < 39) or not (115 < self.measured_blood_pressure < 130) or not (
-                75 < self.measured_oxygen_level < 100) or not (75 < self.measured_heart_rate < 85):
+        if not (36.5 < self.measured_temperature < 37.5) or not (110 < self.measured_sbp < 120) or not (
+                75 < self.measured_sbp < 90) or not (
+                95 < self.measured_oxygen_level < 100) or not (60 < self.measured_heart_rate < 100):
             return True
         return False
